@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\BG_Login.png" />
     <None Remove="img\BG_MainWindow.png" />
+    <None Remove="img\BG_Register.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="img\BG_Login.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\BG_MainWindow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\BG_Register.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

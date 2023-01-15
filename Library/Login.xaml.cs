@@ -10,33 +10,31 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Library
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Login.xaml etkileşim mantığı
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Login : Window
     {
-        public MainWindow()
+        public Login()
         {
             InitializeComponent();
+
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            Login LgWPF = new Login();
-            LgWPF.Show();
-            this.Close();
-        }
-
-        private void btnSignUp_Click(object sender, RoutedEventArgs e)
-        {
             Register RgWPF = new Register();
             RgWPF.Show();
             this.Close();
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
