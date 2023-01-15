@@ -22,7 +22,8 @@ namespace Library
         public Login()
         {
             InitializeComponent();
-
+            //We send the information in the login window to class Logging
+            Logging.LoginMain = this;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -34,7 +35,7 @@ namespace Library
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-
+            Logging.TryLogin();
         }
     }
 }
