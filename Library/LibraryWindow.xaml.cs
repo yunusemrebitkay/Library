@@ -27,11 +27,13 @@ namespace Library
             GlobalMethods.GetUserInformation();
             GlobalMethods.WaitForMethodRun();
             GlobalMethods.GetBooksInformation();
+            GlobalMethods.AdminPanelButtonVisibility();
         }
 
         private void btnAdminPanel_Click(object sender, RoutedEventArgs e)
         {
-
+            AdminPanel adm = new AdminPanel();
+            adm.Show();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)

@@ -1,0 +1,261 @@
+﻿<Window x:Class="Library.AdminPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library"
+        mc:Ignorable="d"
+        Title="AdminPanel" Height="420" Width="850" >
+    <Grid Background="#FF202020">
+        <Image x:Name="img_adminopanel" Height="150" Width="150" Source="/img/Adminpanel_Text.png" HorizontalAlignment="Left"  VerticalAlignment="Top"  />
+
+        <TabControl TabStripPlacement="Left"  BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" >
+
+            <TabItem Name="tabBooks" Width="150" Margin="0,100,0,-100"  Height="40" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal"  >
+                        <Image x:Name="img_book" Height="16" Width="16" Source="/img/book.png"   />
+                        <TextBlock Text="Books" Margin="5,0,18,0" FontFamily="Segoe UI Semibold"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="#161717" >
+                    <DataGrid Name="datagridBooksForAdmin" IsReadOnly="True" Background="#FF161717" Foreground="Black" BorderBrush="{x:Null}"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Height="40" Margin="0,100,0,-100" Background="{x:Null}" Foreground="White">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal"  >
+                        <Image x:Name="img_teacher" Height="16" Width="16" Source="/img/teacher.png" />
+                        <TextBlock Text="Teacher Approvals" Margin="5,0,0,0" FontFamily="Segoe UI Semibold" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="#161717" >
+                    <DataGrid Name="datagridTeacherApprovals" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FF202020" Width="694" Height="300" BorderBrush="White"/>
+                    <Button Name="btnTeacherApproval" Content="Approval" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="150" Click="btnTeacherApproval_Click" Margin="0,316,0,0" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe UI Semibold" Background="#FFCE1212">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                <Style.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="20" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem  Height="40" Margin="0,100,0,-100" Background="{x:Null}" Foreground="White" FontFamily="Segoe UI Semibold">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal"  >
+                        <Image x:Name="img_return" Height="16" Width="16" Source="/img/returnbook.png"  />
+                        <TextBlock Text="Return Approvals" Margin="5,0,0,0" FontFamily="Segoe UI Semibold" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="#161717">
+                    <DataGrid Name="datagridReturnApprovals" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FF202020" Width="694" Height="300" BorderBrush="White"/>
+                    <Button Name="btnReturnApproval" Content="Approval" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="150" Click="btnReturnApproval_Click" Margin="0,316,0,0" Foreground="White" BorderBrush="{x:Null}" Background="#FFCE1212">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                <Style.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="20" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Height="40" Margin="0,100,0,-100" Background="{x:Null}" Foreground="White">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal"  >
+                        <Image x:Name="img_addbook" Height="16" Width="16" Source="/img/addbook.png"  />
+                        <TextBlock Text="Add Book" Margin="5,0,0,0" FontFamily="Segoe UI Semibold"   />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="#161717">
+                    <Border Background="#FF202020" CornerRadius="20" Margin="10,10,10,10" Width="425" Height="300"/>
+                    <TextBox Name="txtbxBookName" HorizontalAlignment="Center" Margin="0,0,175,175" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Height="40" Background="#FF161717" Foreground="White" FontFamily="Segoe UI Semibold" BorderBrush="{x:Null}" TextAlignment="Left" Padding="5,10,0,0"/>
+                    <TextBlock IsHitTestVisible="False" Text="Book Name" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,175,175" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtbxBookName}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <TextBox Name="txtbxCategory" HorizontalAlignment="Center" Margin="0,0,175,50" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Height="40" Background="#FF161717" Foreground="White" BorderBrush="{x:Null}" Padding="5,10,0,0" FontFamily="Segoe UI Semibold"/>
+                    <TextBlock IsHitTestVisible="False" Text="Book Category" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,175,50"  Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtbxCategory}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <TextBox Name="txtbxAuthor" HorizontalAlignment="Center" Margin="0,0,175,-75" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Height="40" Background="#FF161717" Foreground="White" BorderBrush="{x:Null}" Padding="5,10,0,0" FontFamily="Segoe UI Semibold"/>
+                    <TextBlock IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,175,-75" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtbxAuthor}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style><Run Text="Book "/><Run Language="tr-tr" Text="Author"/></TextBlock>
+
+                    <TextBox Name="txtbxNumberOfPages" HorizontalAlignment="Center" Margin="175,0,0,175"  TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Height="40" Background="#FF161717" BorderBrush="{x:Null}" Foreground="White" FontFamily="Segoe UI Semibold" Padding="5,10,0,0"/>
+                    <TextBlock IsHitTestVisible="False" Text="Book Number of Pages" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,175"  Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtbxNumberOfPages}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBox Name="txtbxReleaseDate" HorizontalAlignment="Center" Margin="175,0,0,50"  TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Height="40" BorderBrush="{x:Null}" Foreground="White" Background="#FF161717" FontFamily="Segoe UI Semibold" Padding="5,10,0,0"/>
+                    <TextBlock IsHitTestVisible="False" Text="Book Release Date" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,50"  Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtbxReleaseDate}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBox Name="txtbxAmount" HorizontalAlignment="Center" Margin="175,75,0,0"  TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Height="40" BorderBrush="{x:Null}" Foreground="White" Background="#FF161717" Padding="5,10,0,0" FontFamily="Segoe UI Semibold"/>
+                    <TextBlock IsHitTestVisible="False" Text="Book Amount" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,75,0,0" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtbxAmount}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <Button Name="btnAddBook" Content="Add Book" HorizontalAlignment="Center" Margin="0,291,0,0" VerticalAlignment="Top" Height="40" Width="150" Click="btnAddBook_Click" Foreground="White" BorderBrush="{x:Null}" Background="#FFCE1212">
+
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                <Style.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="20" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                </Grid>
+            </TabItem>
+            <TabItem  Height="40" Margin="0,100,0,-100" Background="{x:Null}" Foreground="White" >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal"  >
+                        <Image x:Name="img_bookinuse" Height="16" Width="16" Source="/img/bookinuse.png"  />
+                        <TextBlock Text="Book in use" Margin="5,0,0,0" FontFamily="Segoe UI Semibold" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="#161717">
+                    <DataGrid Name="datagridTakenBooksForAdmin" IsReadOnly="True" Background="#FF161717" Foreground="Black" BorderBrush="{x:Null}"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Height="40" Margin="0,100,0,-100" Background="{x:Null}" Foreground="White">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" >
+                        <Image x:Name="img_settings" Height="16" Width="16" Source="/img/settings.png" />
+                        <TextBlock Text="Settings" Margin="5,0,0,0" FontFamily="Segoe UI Semibold" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="#161717">
+                    <Border Background="#FF202020" CornerRadius="20" Margin="10,10,10,10"/>
+                    <ComboBox Name="cmboxSettings" SelectedIndex="0" HorizontalAlignment="Left" Margin="61,49,0,0" VerticalAlignment="Top" Width="108" Height="25" Background="#FF161717" Foreground="Black" BorderBrush="{x:Null}">
+                        <ComboBoxItem Content="Max Take Books"/>
+                        <ComboBoxItem Content="Max Take Time"/>
+                    </ComboBox>
+                    <TextBox Name="txtbxSettingValue" HorizontalAlignment="Left" Margin="219,42,0,0" Text="Value" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="40" Background="#FF161717" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe UI Semibold" Padding="5,10,0,0"/>
+                    <Button Name="btnSaveSetting" Content="Save" HorizontalAlignment="Left" Margin="395,42,0,0" VerticalAlignment="Top" Height="40" Width="103" Click="btnSaveSetting_Click" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe UI Semibold" Background="#FFCE1212">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                <Style.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="20" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+    </Grid>
+    <Window.Resources>
+        <SolidColorBrush x:Key="RedBrush" Color="#FF202020"/>
+        <SolidColorBrush x:Key="gradientcolor" Color="#CE1212"/>
+        <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
+
+        <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
+
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border 
+                                Name="Border"
+                                Margin="0,0,0,0" 
+                                Background="{StaticResource RedBrush}"
+                                BorderThickness="0,0,0,0" 
+                                CornerRadius="10,10,10,10" >
+                                <ContentPresenter x:Name="ContentSite"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="left"
+                                    ContentSource="Header"
+                                    Margin="12,2,12,2"
+                                    RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource gradientcolor}" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,0" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+</Window>

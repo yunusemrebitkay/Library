@@ -238,6 +238,32 @@ namespace Library
                 }
             }
 
+
+
+        }
+
+        //I created a method to hide/show admin button by user
+        public static void AdminPanelButtonVisibility()
+        {
+            //I hide the button by default
+            LibraryMain.btnAdminPanel.Visibility = Visibility.Hidden;
+            //I connected to the database to get the user type
+            using (LibraryContext context = new LibraryContext())
+            {
+                //I assigned user data from database to var variable with user information
+                var vrUserTypeId = context.TblUsers.Where(pr => pr.Email == Logging.LoggedUser).FirstOrDefault();
+
+                //If there is no required user I made it check
+                if (vrUserTypeId != null)
+                {
+                    //I check if the user type is admin
+                    if (vrUserTypeId.UserType == 3)
+                    {
+                        //if admin i make it visible
+                        LibraryMain.btnAdminPanel.Visibility = Visibility.Visible;
+                    }
+                }
+            }
         }
     }
 }

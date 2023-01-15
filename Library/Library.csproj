@@ -8,10 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\addbook.png" />
+    <None Remove="img\Adminpanel_Text.png" />
     <None Remove="img\BG_Login.png" />
     <None Remove="img\BG_MainWindow.png" />
     <None Remove="img\BG_Register.png" />
+    <None Remove="img\book.png" />
+    <None Remove="img\bookinuse.png" />
     <None Remove="img\logo_library.png" />
+    <None Remove="img\returnbook.png" />
+    <None Remove="img\settings.png" />
+    <None Remove="img\teacher.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="img\addbook.png" />
+    <Resource Include="img\Adminpanel_Text.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\BG_Login.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -28,7 +39,18 @@
     <Resource Include="img\BG_Register.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\book.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\bookinuse.png" />
     <Resource Include="img\logo_library.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\returnbook.png" />
+    <Resource Include="img\settings.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\teacher.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
