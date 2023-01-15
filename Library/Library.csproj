@@ -11,6 +11,7 @@
     <None Remove="img\BG_Login.png" />
     <None Remove="img\BG_MainWindow.png" />
     <None Remove="img\BG_Register.png" />
+    <None Remove="img\logo_library.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\BG_Register.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\logo_library.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -15,6 +15,8 @@ namespace Library
 {
     public static class GlobalMethods
     {
+        //I have defined the information from the LibraryWindow window to the current class under the title "LibraryMain"
+        public static LibraryWindow LibraryMain;
 
         //https://stackoverflow.com/questions/5342375/regex-email-validation
         //I created a method that checks an email with the codes I got from the website.
@@ -91,6 +93,23 @@ namespace Library
             {
                 get { return DateTime.UtcNow; }
             }
+        }
+
+        //I created a generator for school number
+        public static int SchoolNumberGenerator()
+        {
+            //I used Random method to generate random numbers.
+            Random rndm = new Random();
+            //I used month and day in its generator algorithm
+            int irMonth = DateTime.Now.Month;
+            int irDay = DateTime.Now.Day;
+
+            //I wanted it to create a school number between 10k and 999k
+            string Generator = $"{irMonth}{irDay}{rndm.Next(10000, 999999)}";
+            //Then I convert this data I created to int and assign it as a school number.
+            int SchoolNumber = Int32.Parse(Generator);
+            //I am sending back the result.
+            return SchoolNumber;
         }
     }
 }

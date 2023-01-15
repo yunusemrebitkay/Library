@@ -22,10 +22,13 @@ namespace Library
         public Register()
         {
             InitializeComponent();
+            Registering.RegisterMain = this;
+            RegisterStatus.RegisterMain = this;
         }
 
         private void btnSignUp_Click(object sender, RoutedEventArgs e)
         {
+            Registering.RegisteringUser();
 
         }
     }

@@ -22,6 +22,52 @@ namespace Library
         public LibraryWindow()
         {
             InitializeComponent();
+            GlobalMethods.LibraryMain = this;
+        }
+
+        private void btnAdminPanel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void cmbxForListing_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void txtbxNameSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btnGetSelectedBook_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnBooksOnMe_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnNotifications_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
