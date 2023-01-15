@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Library.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -110,6 +111,133 @@ namespace Library
             int SchoolNumber = Int32.Parse(Generator);
             //I am sending back the result.
             return SchoolNumber;
+        }
+
+        public static void GetBooksOnMe(TheBooksOnMe TheMain)
+        {
+            //I connect to database to get books on user
+            using (LibraryContext context = new LibraryContext())
+            {
+                //With the e-mail of the logged in user, I receive the books the user bought from the database.
+                context.TblTakenBooks.Where(pr => pr.Email == Logging.LoggedUser).OrderBy(pr => pr.TakenBooksId).Take(1000).Load();
+                //I'm sending the data from the database to the datagrid
+                TheMain.datagridBooksOnMe.ItemsSource = context.TblTakenBooks.Local.ToBindingList();
+            }
+        }
+
+        public static void GetUserInformation()
+        {
+            //I connect to database to get user information
+            using (LibraryContext context = new LibraryContext())
+            {
+                //I receive information by e-mail of the user logged in from the database
+                var VrUser = context.TblUsers.Where(pr => pr.Email == Logging.LoggedUser).FirstOrDefault();
+
+                if (VrUser != null)
+                {
+                    //I send content information to the labels I created on the library screen
+                    LibraryMain.lblUsername.Content = VrUser.Firstname.ToUpper() + " " + VrUser.Lastname.ToUpper();
+                    LibraryMain.lblNumber.Content = VrUser.SchoolNumber;
+                }
+
+            }
+        }
+        public static void GetBooksInformation()
+        {
+            //I connect to database to get book information
+            using (LibraryContext context = new LibraryContext())
+            {
+                //I am getting information in TblBooks database
+                context.TblBooks.OrderBy(pr => pr.BookId).Take(1000).Load();
+                //I'm sending the data from the database to the datagrid
+                LibraryMain.dataGridBooks.ItemsSource = context.TblBooks.Local.ToBindingList();
+            }
+        }
+
+        //https://stackoverflow.com/questions/3243348/how-to-call-a-method-daily-at-specific-time-in-c
+        //After the program is opened, I created the following method to run the method I created for checking the books whose return period comes after a certain period of time.
+        public static void WaitForMethodRun()
+        {
+            //Assign to var variable by adding 15 seconds to login time
+            var vrRun = Logging.dtTime + TimeSpan.FromSeconds(15);
+
+            //I want the method to run if the time I specified has passed
+            if (vrRun <= DateTime.Now)
+            {
+                GetControlStudentReturnTime();
+            }
+            //With the delay time I run the method again until the time has elapsed
+            else
+            {
+                var vrDelayTime = vrRun - DateTime.Now;
+                Task.Delay(vrDelayTime).ContinueWith(_ => GetControlStudentReturnTime());
+            }
+        }
+
+        //I created a method to log out
+        public static void TryLogout()
+        {
+            //Reset general user information
+            Logging.LoggedUser = "";
+            //I closed the LibraryWindow by reopening the Login screen with a success message
+            Login LGWindow = new Login();
+            MessageBox.Show("You have successfully logged-out");
+            LGWindow.Show();
+            LibraryMain.Close();
+        }
+
+        public static void GetControlStudentReturnTime()
+        {
+            //I am connecting to database for user return notification.
+            using (LibraryContext context = new LibraryContext())
+            {
+                //I'm defining it to add information to the TblNotifications database.
+                TblNotifications Notifications = new TblNotifications();
+
+                //I take the information of the books that have expired, together with the user information, and assign them to the var variable.
+                var vrReturnTime = context.TblTakenBooks.Where(pr => pr.Email == Logging.LoggedUser).Cast<TblTakenBooks>().ToList();
+
+                //We will convert the selected item's information into an array with the foreach loop and process it.
+                foreach (var vrReturn in vrReturnTime)
+                {
+                    //We check if the return period has expired
+                    if (vrReturn.ReturnDate < DateTime.Now)
+                    {
+                        //I'm putting the information into the database
+                        MessageBox.Show("The return period of book '" + vrReturn.BookName + "' has passed. Please return the book without further delay!");
+                        Notifications.Email = vrReturn.Email;
+                        Notifications.DisplayMessage = "The return period of book '" + vrReturn.BookName + "' has passed. Please return the book without further delay!";
+                        Notifications.Time = DateTime.Now;
+
+                        //I check if it is registered in the database so that I do not receive the same notification again
+                        var vrSearchTheSame = context.TblNotifications.Where(pr => (pr.DisplayMessage == Notifications.DisplayMessage) && pr.Email == Logging.LoggedUser).FirstOrDefault();
+
+                        try
+                        {
+                            //If there is, I update the time of that notification.
+                            if (vrSearchTheSame != null)
+                            {
+                                vrSearchTheSame.Time = DateTime.Now;
+                                context.TblNotifications.Update(vrSearchTheSame);
+                            }
+                            else
+                            {
+                                //I add the notification to the database.
+                                context.TblNotifications.Add(Notifications);
+                            }
+                            //I save the changes
+                            context.SaveChanges();
+                        }
+                        catch (Exception E)
+                        {
+                            //If there is an error in saving, I show an error message.
+                            MessageBox.Show("An error has occured while registering. Error is: \n" + E.Message.ToString() + "\n\n" + E?.InnerException?.Message);
+                            return;
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
