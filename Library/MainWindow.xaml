@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Library"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="760" Width="1100">
 
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/img/BG_MainWindow.png" />
+        </Grid.Background>
+
+
+        <Button Name="btnLogin" Click="btnLogin_Click" Content="Login" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="60,415,0,0" Height="46" Width="150" Background="#FFFFDB58" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe UI Black" FontSize="16">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Style.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Name="btnSignUp" Content="Sign Up" HorizontalAlignment="Left"  Click="btnSignUp_Click" VerticalAlignment="Top" Margin="235,415,0,0" Height="46" Width="150" Background="#FF80C6FF" Foreground="White" BorderBrush="{x:Null}" FontFamily="Segoe UI Black" FontSize="16">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Style.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Button.Style>
+        </Button>
+        <TextBlock HorizontalAlignment="Left" Margin="60,191,0,0" Text="Library" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontSize="72" Foreground="#FF374291"/>
+        <TextBlock HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="60,0,0,30" Text="A huge library fits in your pocket now. Library users can borrow books from anywhere in the world, browse historical maps of Bavaria, or browse the archives of a newspaper for news about the First World War with their mobile phones or computers." TextWrapping="Wrap"  Height="105" Width="325" FontFamily="Segoe UI Semibold" Foreground="#FF535353"/>
     </Grid>
 </Window>

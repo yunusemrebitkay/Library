@@ -24,5 +24,15 @@ namespace Library
         {
             InitializeComponent();
         }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
