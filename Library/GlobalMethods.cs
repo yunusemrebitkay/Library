@@ -87,6 +87,7 @@ namespace Library
             return IPAddress;
         }
 
+
         //The method we created for the utc server time. I learned this method from class.
         static public class DateTimeHelper
         {
@@ -96,63 +97,31 @@ namespace Library
             }
         }
 
-        //I created a generator for school number
-        public static int SchoolNumberGenerator()
+        //I created a method to hide/show admin button by user
+        public static void AdminPanelButtonVisibility()
         {
-            //I used Random method to generate random numbers.
-            Random rndm = new Random();
-            //I used month and day in its generator algorithm
-            int irMonth = DateTime.Now.Month;
-            int irDay = DateTime.Now.Day;
-
-            //I wanted it to create a school number between 10k and 999k
-            string Generator = $"{irMonth}{irDay}{rndm.Next(10000, 999999)}";
-            //Then I convert this data I created to int and assign it as a school number.
-            int SchoolNumber = Int32.Parse(Generator);
-            //I am sending back the result.
-            return SchoolNumber;
-        }
-
-        public static void GetBooksOnMe(TheBooksOnMe TheMain)
-        {
-            //I connect to database to get books on user
+            //I hide the button by default
+            LibraryMain.btnAdminPanel.Visibility = Visibility.Hidden;
+            //I connected to the database to get the user type
             using (LibraryContext context = new LibraryContext())
             {
-                //With the e-mail of the logged in user, I receive the books the user bought from the database.
-                context.TblTakenBooks.Where(pr => pr.Email == Logging.LoggedUser).OrderBy(pr => pr.TakenBooksId).Take(1000).Load();
-                //I'm sending the data from the database to the datagrid
-                TheMain.datagridBooksOnMe.ItemsSource = context.TblTakenBooks.Local.ToBindingList();
-            }
-        }
+                //I assigned user data from database to var variable with user information
+                var vrUserTypeId = context.TblUsers.Where(pr => pr.Email == Logging.LoggedUser).FirstOrDefault();
 
-        public static void GetUserInformation()
-        {
-            //I connect to database to get user information
-            using (LibraryContext context = new LibraryContext())
-            {
-                //I receive information by e-mail of the user logged in from the database
-                var VrUser = context.TblUsers.Where(pr => pr.Email == Logging.LoggedUser).FirstOrDefault();
-
-                if (VrUser != null)
+                //If there is no required user I made it check
+                if (vrUserTypeId != null)
                 {
-                    //I send content information to the labels I created on the library screen
-                    LibraryMain.lblUsername.Content = VrUser.Firstname.ToUpper() + " " + VrUser.Lastname.ToUpper();
-                    LibraryMain.lblNumber.Content = VrUser.SchoolNumber;
+                    //I check if the user type is admin
+                    if (vrUserTypeId.UserType == 3)
+                    {
+                        //if admin i make it visible
+                        LibraryMain.btnAdminPanel.Visibility = Visibility.Visible;
+                    }
                 }
+            }
+        }
 
-            }
-        }
-        public static void GetBooksInformation()
-        {
-            //I connect to database to get book information
-            using (LibraryContext context = new LibraryContext())
-            {
-                //I am getting information in TblBooks database
-                context.TblBooks.OrderBy(pr => pr.BookId).Take(1000).Load();
-                //I'm sending the data from the database to the datagrid
-                LibraryMain.dataGridBooks.ItemsSource = context.TblBooks.Local.ToBindingList();
-            }
-        }
+
 
         //https://stackoverflow.com/questions/3243348/how-to-call-a-method-daily-at-specific-time-in-c
         //After the program is opened, I created the following method to run the method I created for checking the books whose return period comes after a certain period of time.
@@ -173,19 +142,6 @@ namespace Library
                 Task.Delay(vrDelayTime).ContinueWith(_ => GetControlStudentReturnTime());
             }
         }
-
-        //I created a method to log out
-        public static void TryLogout()
-        {
-            //Reset general user information
-            Logging.LoggedUser = "";
-            //I closed the LibraryWindow by reopening the Login screen with a success message
-            Login LGWindow = new Login();
-            MessageBox.Show("You have successfully logged-out");
-            LGWindow.Show();
-            LibraryMain.Close();
-        }
-
         public static void GetControlStudentReturnTime()
         {
             //I am connecting to database for user return notification.
@@ -238,32 +194,90 @@ namespace Library
                 }
             }
 
-
-
         }
 
-        //I created a method to hide/show admin button by user
-        public static void AdminPanelButtonVisibility()
+        public static void GetUserInformation()
         {
-            //I hide the button by default
-            LibraryMain.btnAdminPanel.Visibility = Visibility.Hidden;
-            //I connected to the database to get the user type
+            //I connect to database to get user information
             using (LibraryContext context = new LibraryContext())
             {
-                //I assigned user data from database to var variable with user information
-                var vrUserTypeId = context.TblUsers.Where(pr => pr.Email == Logging.LoggedUser).FirstOrDefault();
+                //I receive information by e-mail of the user logged in from the database
+                var VrUser = context.TblUsers.Where(pr => pr.Email == Logging.LoggedUser).FirstOrDefault();
 
-                //If there is no required user I made it check
-                if (vrUserTypeId != null)
+                if (VrUser != null)
                 {
-                    //I check if the user type is admin
-                    if (vrUserTypeId.UserType == 3)
-                    {
-                        //if admin i make it visible
-                        LibraryMain.btnAdminPanel.Visibility = Visibility.Visible;
-                    }
+                    //I send content information to the labels I created on the library screen
+                    LibraryMain.lblUsername.Content = VrUser.Firstname.ToUpper() + " " + VrUser.Lastname.ToUpper();
+                    LibraryMain.lblNumber.Content = VrUser.SchoolNumber;
                 }
+
             }
         }
+        public static void GetBooksInformation()
+        {
+            //I connect to database to get book information
+            using (LibraryContext context = new LibraryContext())
+            {
+                //I am getting information in TblBooks database
+                context.TblBooks.OrderBy(pr => pr.BookId).Take(1000).Load();
+                //I'm sending the data from the database to the datagrid
+                LibraryMain.dataGridBooks.ItemsSource = context.TblBooks.Local.ToBindingList();
+            }
+        }
+
+        public static void GetBooksOnMe(TheBooksOnMe TheMain)
+        {
+            //I connect to database to get books on user
+            using (LibraryContext context = new LibraryContext())
+            {
+                //With the e-mail of the logged in user, I receive the books the user bought from the database.
+                context.TblTakenBooks.Where(pr => pr.Email == Logging.LoggedUser).OrderBy(pr => pr.TakenBooksId).Take(1000).Load();
+                //I'm sending the data from the database to the datagrid
+                TheMain.datagridBooksOnMe.ItemsSource = context.TblTakenBooks.Local.ToBindingList();
+            }
+        }
+
+        public static void GetNotifications(Notifications MainNotification)
+        {
+            //I connect to database to get notifications
+            using (LibraryContext context = new LibraryContext())
+            {
+                //I receive notifications of the user from the database with the e-mail of the logged in user.
+                context.TblNotifications.Where(pr => pr.Email == Logging.LoggedUser).OrderBy(pr => pr.NotificationsId).Take(1000).Load();
+                //I'm sending the data from the database to the datagrid
+                MainNotification.datagridNotifications.ItemsSource = context.TblNotifications.Local.ToBindingList();
+
+            }
+        }
+
+        //I created a generator for school number
+        public static int SchoolNumberGenerator()
+        {
+            //I used Random method to generate random numbers.
+            Random rndm = new Random();
+            //I used month and day in its generator algorithm
+            int irMonth = DateTime.Now.Month;
+            int irDay = DateTime.Now.Day;
+
+            //I wanted it to create a school number between 10k and 999k
+            string Generator = $"{irMonth}{irDay}{rndm.Next(10000, 999999)}";
+            //Then I convert this data I created to int and assign it as a school number.
+            int SchoolNumber = Int32.Parse(Generator);
+            //I am sending back the result.
+            return SchoolNumber;
+        }
+
+        //I created a method to log out
+        public static void TryLogout()
+        {
+            //Reset general user information
+            Logging.LoggedUser = "";
+            //I closed the LibraryWindow by reopening the Login screen with a success message
+            Login LGWindow = new Login();
+            MessageBox.Show("You have successfully logged-out");
+            LGWindow.Show();
+            LibraryMain.Close();
+        }
+
     }
 }

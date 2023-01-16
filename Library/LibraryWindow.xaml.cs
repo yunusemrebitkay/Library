@@ -74,7 +74,8 @@ namespace Library
 
         private void btnNotifications_Click(object sender, RoutedEventArgs e)
         {
-
+            Notifications noti = new Notifications();
+            noti.Show();
         }
     }
 }

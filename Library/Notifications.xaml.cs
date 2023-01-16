@@ -15,17 +15,12 @@ using System.Windows.Shapes;
 namespace Library
 {
 
-    public partial class TheBooksOnMe : Window
+    public partial class Notifications : Window
     {
-        public TheBooksOnMe()
+        public Notifications()
         {
             InitializeComponent();
-            GlobalMethods.GetBooksOnMe(this);
-        }
-
-        private void btnReturn_Click(object sender, RoutedEventArgs e)
-        {
-            LibraryOperations.ReturnBook(this);
+            GlobalMethods.GetNotifications(this);
         }
     }
 }
